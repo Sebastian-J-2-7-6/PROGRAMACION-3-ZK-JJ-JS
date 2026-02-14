@@ -1,4 +1,3 @@
 # PROGRAMACION-3-ZK-JJ-JS
 hola
-print 
-hola mundo
+print ("Hola mundo")
