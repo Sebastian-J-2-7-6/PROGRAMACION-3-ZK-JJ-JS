@@ -104,7 +104,23 @@ class Calculadora:
         resultado = math.gcd(abs(num1), abs(num2))
         return resultado
 
+    def raiz (self,num1, num2):
+        num1=float(input("Ingrese el Radicando -> "))
+        num2=int(input("Ingrese el Indice -> "))
+        if num2==0:
+            print("ERROR, No se Existe raiz con indice 0 ")
+        else:
+            num2=1/num2
+            Resultado=math.pow(num1,num2)
+            print(f"El resultado es: {Resultado}")
 
+    def iva (self, valor, iva):
+        valor=float(input("Ingrse el precio -> "))
+        iva=float(input("Ingrese el valor del iva -> "))
+        Tiva=valor*iva/100
+        total=valor+Tiva
+        print(f"EL valor total con iva es : {total} ")
+    
 class Interfaz:
     def __init__(self):
         self.calc = Calculadora()
@@ -222,7 +238,9 @@ class Interfaz:
             print("2. Trigonométricas")
             print("3. Factorial")
             print("4. MCD")
-            print("5. Salir")
+            print("5. Raices)
+            print("6. IVA)
+            print("7. Salir")
             print("="*40)
             
             opcion = input("Opción: ").strip()
@@ -237,6 +255,10 @@ class Interfaz:
                 case "4":
                     self.menu_mcd()
                 case "5":
+                    self.menu_Raices()
+                case "6":
+                    self.menu_iva()
+                case "7":
                     print("\n¡Hasta luego!\n")
                     break
                 case _:
