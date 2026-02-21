@@ -3,7 +3,7 @@ import math
 
 class Calculadora:
 
-    # -------- OPERACIONES BÁSICAS --------
+    # operaciones basicas
     def suma(self):
         total = 0
         print("Ingrese números para sumar. '.' para terminar.")
@@ -48,7 +48,7 @@ class Calculadora:
                 total /= n
         print("Resultado:", total)
 
-    # -------- TRIGONOMÉTRICAS --------
+    # trigonometricas
     def seno(self, angulo):
         print("Resultado:", round(math.sin(math.radians(angulo)), 4))
 
@@ -58,7 +58,7 @@ class Calculadora:
     def tangente(self, angulo):
         print("Resultado:", round(math.tan(math.radians(angulo)), 4))
 
-    # -------- OTRAS --------
+    # ...
     def factorial(self, numero):
         print("Resultado:", math.factorial(numero))
 
@@ -79,7 +79,7 @@ class Calculadora:
         print("Total con IVA:", total)
 
 
-# -------- INTERFAZ --------
+# menu
 calc = Calculadora()
 
 while True:
