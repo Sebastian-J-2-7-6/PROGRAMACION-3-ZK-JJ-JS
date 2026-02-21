@@ -122,8 +122,8 @@ class Calculadora:
             print (f"El numero Fibonaci en la posicion {n} es: {b}")
         else:
             for i in range(2, n+1):
-            c=a+b
-            a, b=b,c
+                c=a+b
+                a, b=b,c
         print (f"El numero Fibonaci en la posicion {n} es: {b}")
 
     def iva (self, valor, iva):
