@@ -1,0 +1,163 @@
+import math
+
+
+class Calculadora:
+
+    # -------- OPERACIONES BÁSICAS --------
+    def suma(self):
+        total = 0
+        print("Ingrese números para sumar. '.' para terminar.")
+        while True:
+            n = input("Número: ")
+            if n == ".":
+                break
+            total += float(n)
+        print("Resultado:", total)
+
+    def resta(self):
+        print("Ingrese números para restar. '.' para terminar.")
+        total = float(input("Primer número: "))
+        while True:
+            n = input("Número: ")
+            if n == ".":
+                break
+            total -= float(n)
+        print("Resultado:", total)
+
+    def multiplicacion(self):
+        total = 1
+        print("Ingrese números para multiplicar. '.' para terminar.")
+        while True:
+            n = input("Número: ")
+            if n == ".":
+                break
+            total *= float(n)
+        print("Resultado:", total)
+
+    def division(self):
+        print("Ingrese números para dividir. '.' para terminar.")
+        total = float(input("Primer número: "))
+        while True:
+            n = input("Número: ")
+            if n == ".":
+                break
+            n = float(n)
+            if n == 0:
+                print("No se puede dividir entre 0")
+            else:
+                total /= n
+        print("Resultado:", total)
+
+    # -------- TRIGONOMÉTRICAS --------
+    def seno(self, angulo):
+        print("Resultado:", round(math.sin(math.radians(angulo)), 4))
+
+    def coseno(self, angulo):
+        print("Resultado:", round(math.cos(math.radians(angulo)), 4))
+
+    def tangente(self, angulo):
+        print("Resultado:", round(math.tan(math.radians(angulo)), 4))
+
+    # -------- OTRAS --------
+    def factorial(self, numero):
+        print("Resultado:", math.factorial(numero))
+
+    def mcd(self, a, b):
+        print("Resultado:", math.gcd(a, b))
+
+    def mcm(self, a, b):
+        print("Resultado:", abs(a * b) // math.gcd(a, b))
+
+    def potencia(self, base, exponente):
+        print("Resultado:", base ** exponente)
+
+    def raiz(self, radicando, indice):
+        print("Resultado:", radicando ** (1 / indice))
+
+    def iva(self, valor, iva):
+        total = valor + (valor * iva / 100)
+        print("Total con IVA:", total)
+
+
+# -------- INTERFAZ --------
+calc = Calculadora()
+
+while True:
+
+    print("\n=========== CALCULADORA ===========")
+    print("1. Suma")
+    print("2. Resta")
+    print("3. Multiplicación")
+    print("4. División")
+    print("5. Seno")
+    print("6. Coseno")
+    print("7. Tangente")
+    print("8. Factorial")
+    print("9. MCD")
+    print("10. MCM")
+    print("11. Potencia")
+    print("12. Raíz")
+    print("13. IVA")
+    print("0. Salir")
+
+    opcion = input("Seleccione: ")
+
+    if opcion == "1":
+        calc.suma()
+
+    elif opcion == "2":
+        calc.resta()
+
+    elif opcion == "3":
+        calc.multiplicacion()
+
+    elif opcion == "4":
+        calc.division()
+
+    elif opcion == "5":
+        ang = float(input("Ángulo: "))
+        calc.seno(ang)
+
+    elif opcion == "6":
+        ang = float(input("Ángulo: "))
+        calc.coseno(ang)
+
+    elif opcion == "7":
+        ang = float(input("Ángulo: "))
+        calc.tangente(ang)
+
+    elif opcion == "8":
+        n = int(input("Número: "))
+        calc.factorial(n)
+
+    elif opcion == "9":
+        a = int(input("Primer número: "))
+        b = int(input("Segundo número: "))
+        calc.mcd(a, b)
+
+    elif opcion == "10":
+        a = int(input("Primer número: "))
+        b = int(input("Segundo número: "))
+        calc.mcm(a, b)
+
+    elif opcion == "11":
+        base = float(input("Base: "))
+        exp = float(input("Exponente: "))
+        calc.potencia(base, exp)
+
+    elif opcion == "12":
+        r = float(input("Radicando: "))
+        i = float(input("Índice: "))
+        calc.raiz(r, i)
+
+    elif opcion == "13":
+        valor = float(input("Precio: "))
+        iva = float(input("IVA (%): "))
+        calc.iva(valor, iva)
+
+    elif opcion == "0":
+        print("Finalizado.")
+        break
+
+    else:
+        print("Opción inválida.")
