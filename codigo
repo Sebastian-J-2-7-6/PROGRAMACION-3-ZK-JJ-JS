@@ -3,7 +3,7 @@ import math
 
 class Calculadora:
 
-    # operaciones basicas
+    # -------- OPERACIONES BÁSICAS --------
     def suma(self):
         total = 0
         print("Ingrese números para sumar. '.' para terminar.")
@@ -11,17 +11,28 @@ class Calculadora:
             n = input("Número: ")
             if n == ".":
                 break
-            total += float(n)
+            try:
+                total += float(n)
+            except:
+                print("Error: debe ingresar un número válido.")
         print("Resultado:", total)
 
     def resta(self):
         print("Ingrese números para restar. '.' para terminar.")
-        total = float(input("Primer número: "))
+        try:
+            total = float(input("Primer número: "))
+        except:
+            print("Error: número inválido.")
+            return
+
         while True:
             n = input("Número: ")
             if n == ".":
                 break
-            total -= float(n)
+            try:
+                total -= float(n)
+            except:
+                print("Error: debe ingresar un número válido.")
         print("Resultado:", total)
 
     def multiplicacion(self):
@@ -31,24 +42,35 @@ class Calculadora:
             n = input("Número: ")
             if n == ".":
                 break
-            total *= float(n)
+            try:
+                total *= float(n)
+            except:
+                print("Error: debe ingresar un número válido.")
         print("Resultado:", total)
 
     def division(self):
         print("Ingrese números para dividir. '.' para terminar.")
-        total = float(input("Primer número: "))
+        try:
+            total = float(input("Primer número: "))
+        except:
+            print("Error: número inválido.")
+            return
+
         while True:
             n = input("Número: ")
             if n == ".":
                 break
-            n = float(n)
-            if n == 0:
-                print("No se puede dividir entre 0")
-            else:
-                total /= n
+            try:
+                n = float(n)
+                if n == 0:
+                    print("No se puede dividir entre 0")
+                else:
+                    total /= n
+            except:
+                print("Error: debe ingresar un número válido.")
         print("Resultado:", total)
 
-    # trigonometricas
+    # -------- TRIGONOMÉTRICAS --------
     def seno(self, angulo):
         print("Resultado:", round(math.sin(math.radians(angulo)), 4))
 
@@ -58,9 +80,12 @@ class Calculadora:
     def tangente(self, angulo):
         print("Resultado:", round(math.tan(math.radians(angulo)), 4))
 
-    # ...
+    # -------- OTRAS --------
     def factorial(self, numero):
-        print("Resultado:", math.factorial(numero))
+        try:
+            print("Resultado:", math.factorial(numero))
+        except:
+            print("Error: número inválido para factorial.")
 
     def mcd(self, a, b):
         print("Resultado:", math.gcd(a, b))
@@ -72,14 +97,17 @@ class Calculadora:
         print("Resultado:", base ** exponente)
 
     def raiz(self, radicando, indice):
-        print("Resultado:", radicando ** (1 / indice))
+        try:
+            print("Resultado:", radicando ** (1 / indice))
+        except:
+            print("Error: no se puede calcular esa raíz.")
 
     def iva(self, valor, iva):
         total = valor + (valor * iva / 100)
         print("Total con IVA:", total)
 
 
-# menu
+# -------- INTERFAZ --------
 calc = Calculadora()
 
 while True:
@@ -115,45 +143,72 @@ while True:
         calc.division()
 
     elif opcion == "5":
-        ang = float(input("Ángulo: "))
-        calc.seno(ang)
+        try:
+            ang = float(input("Ángulo: "))
+            calc.seno(ang)
+        except:
+            print("Error: número inválido.")
 
     elif opcion == "6":
-        ang = float(input("Ángulo: "))
-        calc.coseno(ang)
+        try:
+            ang = float(input("Ángulo: "))
+            calc.coseno(ang)
+        except:
+            print("Error: número inválido.")
 
     elif opcion == "7":
-        ang = float(input("Ángulo: "))
-        calc.tangente(ang)
+        try:
+            ang = float(input("Ángulo: "))
+            calc.tangente(ang)
+        except:
+            print("Error: número inválido.")
 
     elif opcion == "8":
-        n = int(input("Número: "))
-        calc.factorial(n)
+        try:
+            n = int(input("Número: "))
+            calc.factorial(n)
+        except:
+            print("Error: número inválido.")
 
     elif opcion == "9":
-        a = int(input("Primer número: "))
-        b = int(input("Segundo número: "))
-        calc.mcd(a, b)
+        try:
+            a = int(input("Primer número: "))
+            b = int(input("Segundo número: "))
+            calc.mcd(a, b)
+        except:
+            print("Error: debe ingresar números enteros.")
 
     elif opcion == "10":
-        a = int(input("Primer número: "))
-        b = int(input("Segundo número: "))
-        calc.mcm(a, b)
+        try:
+            a = int(input("Primer número: "))
+            b = int(input("Segundo número: "))
+            calc.mcm(a, b)
+        except:
+            print("Error: debe ingresar números enteros.")
 
     elif opcion == "11":
-        base = float(input("Base: "))
-        exp = float(input("Exponente: "))
-        calc.potencia(base, exp)
+        try:
+            base = float(input("Base: "))
+            exp = float(input("Exponente: "))
+            calc.potencia(base, exp)
+        except:
+            print("Error: número inválido.")
 
     elif opcion == "12":
-        r = float(input("Radicando: "))
-        i = float(input("Índice: "))
-        calc.raiz(r, i)
+        try:
+            r = float(input("Radicando: "))
+            i = float(input("Índice: "))
+            calc.raiz(r, i)
+        except:
+            print("Error: número inválido.")
 
     elif opcion == "13":
-        valor = float(input("Precio: "))
-        iva = float(input("IVA (%): "))
-        calc.iva(valor, iva)
+        try:
+            valor = float(input("Precio: "))
+            iva = float(input("IVA (%): "))
+            calc.iva(valor, iva)
+        except:
+            print("Error: número inválido.")
 
     elif opcion == "0":
         print("Finalizado.")
