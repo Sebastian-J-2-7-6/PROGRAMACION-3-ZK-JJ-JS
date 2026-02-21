@@ -250,9 +250,9 @@ class Interfaz:
             print("2. Trigonométricas")
             print("3. Factorial")
             print("4. MCD")
-            print("5. Raices)
-            print("6. IVA)
-            print("7. Fibonacci)
+            print("5. Raices")
+            print("6. IVA")
+            print("7. Fibonacci")
             print("8. Salir")
             print("="*40)
             
