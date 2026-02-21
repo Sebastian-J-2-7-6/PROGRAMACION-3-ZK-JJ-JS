@@ -113,6 +113,18 @@ class Calculadora:
             num2=1/num2
             Resultado=math.pow(num1,num2)
             print(f"El resultado es: {Resultado}")
+    def Fibonacci (self,num1):
+        a, b= 0, 1
+        n=int(input("Ingrese la posicion del numero a ver -> "))
+        if n==0:
+            print (f"El numero Fibonaci en la posicion {n} es:  {a}")
+        elif n==1:
+            print (f"El numero Fibonaci en la posicion {n} es: {b}")
+        else:
+            for i in range(2, n+1):
+            c=a+b
+            a, b=b,c
+        print (f"El numero Fibonaci en la posicion {n} es: {b}")
 
     def iva (self, valor, iva):
         valor=float(input("Ingrse el precio -> "))
@@ -240,7 +252,8 @@ class Interfaz:
             print("4. MCD")
             print("5. Raices)
             print("6. IVA)
-            print("7. Salir")
+            print("7. Fibonacci)
+            print("8. Salir")
             print("="*40)
             
             opcion = input("Opción: ").strip()
@@ -259,6 +272,8 @@ class Interfaz:
                 case "6":
                     self.menu_iva()
                 case "7":
+                    self.menu_Fibonacci()
+                case "8":
                     print("\n¡Hasta luego!\n")
                     break
                 case _:
