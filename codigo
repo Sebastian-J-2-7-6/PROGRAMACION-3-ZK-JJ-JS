@@ -70,7 +70,7 @@ class Calculadora:
                 print("Error: debe ingresar un número válido.")
         print("Resultado:", total)
 
-    # trigonometricas
+    # TRIGONOMÉTRICAS
     def seno(self, angulo):
         print("Resultado:", round(math.sin(math.radians(angulo)), 4))
 
@@ -80,7 +80,7 @@ class Calculadora:
     def tangente(self, angulo):
         print("Resultado:", round(math.tan(math.radians(angulo)), 4))
 
-    # ...
+    # OTRAS
     def factorial(self, numero):
         try:
             print("Resultado:", math.factorial(numero))
@@ -106,8 +106,18 @@ class Calculadora:
         total = valor + (valor * iva / 100)
         print("Total con IVA:", total)
 
+    # Fibonacci
+    def fibonacci(self, n):
+        if n < 0:
+            print("Error: no se permiten números negativos.")
+            return
+        a, b = 0, 1
+        for _ in range(n):
+            a, b = b, a + b
+        print("Resultado:", a)
 
-# INTERFAZ
+
+# menu
 calc = Calculadora()
 
 while True:
@@ -126,6 +136,7 @@ while True:
     print("11. Potencia")
     print("12. Raíz")
     print("13. IVA")
+    print("14. Fibonacci")
     print("0. Salir")
 
     opcion = input("Seleccione: ")
@@ -207,6 +218,13 @@ while True:
             valor = float(input("Precio: "))
             iva = float(input("IVA (%): "))
             calc.iva(valor, iva)
+        except:
+            print("Error: número inválido.")
+
+    elif opcion == "14":
+        try:
+            n = int(input("Posición de Fibonacci: "))
+            calc.fibonacci(n)
         except:
             print("Error: número inválido.")
 
