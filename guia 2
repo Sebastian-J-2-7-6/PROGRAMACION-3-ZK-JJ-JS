@@ -2,8 +2,6 @@ import random
 
 class Programa:
 
-    # ---------------- MATRICES ----------------
-
     def ingresar_matriz(self, filas, columnas):
         matriz = []
         for i in range(filas):
@@ -65,9 +63,6 @@ class Programa:
 
         return resultado
 
-
-    # ---------------- INVERSA MATRIZ ----------------
-
     def inversa_matriz(self, A):
 
         n = len(A)
@@ -107,8 +102,6 @@ class Programa:
 
         return I
 
-
-    # ---------------- ORDENAMIENTOS ----------------
 
     def burbuja(self, lista):
 
@@ -187,9 +180,6 @@ class Programa:
 
         return lista
 
-
-# ---------------- MENU PRINCIPAL ----------------
-
 p = Programa()
 
 while True:
@@ -203,7 +193,6 @@ while True:
 
     match op:
 
-        # MATRICES
         case 1:
 
             print("\nSUBMENU MATRICES")
@@ -275,7 +264,6 @@ while True:
                     print("Resultado:", resultado)
 
 
-        # ORDENAMIENTOS
         case 2:
 
             n = int(input("Cantidad de números: "))
