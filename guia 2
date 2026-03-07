@@ -280,7 +280,10 @@ while True:
 
             n = int(input("Cantidad de números: "))
 
-            lista = [random.uniform(0,100) for _ in range(n)]
+            lista = []
+            for i in range(n):
+                numero=float(input(f"Ingrese el numero i+1: "))
+                lista.append(numero)
 
             print("Lista original")
             print(lista)
