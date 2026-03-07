@@ -1,0 +1,318 @@
+import random
+
+class Programa:
+
+    # ---------------- MATRICES ----------------
+
+    def ingresar_matriz(self, filas, columnas):
+        matriz = []
+        for i in range(filas):
+            fila = []
+            for j in range(columnas):
+                valor = float(input(f"Ingrese valor [{i}][{j}]: "))
+                fila.append(valor)
+            matriz.append(fila)
+        return matriz
+
+
+    def mostrar_matriz(self, matriz):
+        for fila in matriz:
+            print(fila)
+
+
+    def suma_matrices(self, A, B):
+        filas = len(A)
+        columnas = len(A[0])
+
+        R = []
+
+        for i in range(filas):
+            fila = []
+            for j in range(columnas):
+                fila.append(A[i][j] + B[i][j])
+            R.append(fila)
+
+        return R
+
+
+    def multiplicar_matrices(self, A, B):
+
+        filasA = len(A)
+        columnasA = len(A[0])
+        columnasB = len(B[0])
+
+        R = [[0]*columnasB for _ in range(filasA)]
+
+        for i in range(filasA):
+            for j in range(columnasB):
+                for k in range(columnasA):
+                    R[i][j] += A[i][k] * B[k][j]
+
+        return R
+
+
+    def matriz_vector(self, A, v):
+
+        filas = len(A)
+        columnas = len(A[0])
+        resultado = []
+
+        for i in range(filas):
+            suma = 0
+            for j in range(columnas):
+                suma += A[i][j] * v[j]
+            resultado.append(suma)
+
+        return resultado
+
+
+    # ---------------- INVERSA MATRIZ ----------------
+
+    def inversa_matriz(self, A):
+
+        n = len(A)
+
+        I = []
+        for i in range(n):
+            fila = []
+            for j in range(n):
+                if i == j:
+                    fila.append(1)
+                else:
+                    fila.append(0)
+            I.append(fila)
+
+        M = []
+        for fila in A:
+            M.append(fila[:])
+
+        for i in range(n):
+
+            pivote = M[i][i]
+
+            if pivote == 0:
+                print("La matriz no tiene inversa")
+                return None
+
+            for j in range(n):
+                M[i][j] = M[i][j] / pivote
+                I[i][j] = I[i][j] / pivote
+
+            for k in range(n):
+                if k != i:
+                    factor = M[k][i]
+                    for j in range(n):
+                        M[k][j] = M[k][j] - factor * M[i][j]
+                        I[k][j] = I[k][j] - factor * I[i][j]
+
+        return I
+
+
+    # ---------------- ORDENAMIENTOS ----------------
+
+    def burbuja(self, lista):
+
+        n = len(lista)
+
+        for i in range(n):
+            for j in range(0, n-i-1):
+                if lista[j] > lista[j+1]:
+                    lista[j], lista[j+1] = lista[j+1], lista[j]
+
+        return lista
+
+
+    def insercion(self, lista):
+
+        for i in range(1, len(lista)):
+            key = lista[i]
+            j = i - 1
+
+            while j >= 0 and key < lista[j]:
+                lista[j+1] = lista[j]
+                j -= 1
+
+            lista[j+1] = key
+
+        return lista
+
+
+    def seleccion(self, lista):
+
+        for i in range(len(lista)):
+            min_i = i
+
+            for j in range(i+1, len(lista)):
+                if lista[j] < lista[min_i]:
+                    min_i = j
+
+            lista[i], lista[min_i] = lista[min_i], lista[i]
+
+        return lista
+
+
+    def mergesort(self, lista):
+
+        if len(lista) > 1:
+
+            mid = len(lista)//2
+            L = lista[:mid]
+            R = lista[mid:]
+
+            self.mergesort(L)
+            self.mergesort(R)
+
+            i = j = k = 0
+
+            while i < len(L) and j < len(R):
+
+                if L[i] < R[j]:
+                    lista[k] = L[i]
+                    i += 1
+                else:
+                    lista[k] = R[j]
+                    j += 1
+
+                k += 1
+
+            while i < len(L):
+                lista[k] = L[i]
+                i += 1
+                k += 1
+
+            while j < len(R):
+                lista[k] = R[j]
+                j += 1
+                k += 1
+
+        return lista
+
+
+# ---------------- MENU PRINCIPAL ----------------
+
+p = Programa()
+
+while True:
+
+    print("\nMENU PRINCIPAL")
+    print("1. Operaciones con matrices")
+    print("2. Ordenamientos")
+    print("3. Salir")
+
+    op = int(input("Seleccione una opción: "))
+
+    match op:
+
+        # MATRICES
+        case 1:
+
+            print("\nSUBMENU MATRICES")
+            print("1. Suma de matrices")
+            print("2. Producto de matrices")
+            print("3. Inversa de matriz")
+            print("4. Matriz por vector")
+
+            sm = int(input("Seleccione opción: "))
+
+            match sm:
+
+                case 1:
+                    f = int(input("Filas: "))
+                    c = int(input("Columnas: "))
+
+                    print("Matriz A")
+                    A = p.ingresar_matriz(f, c)
+
+                    print("Matriz B")
+                    B = p.ingresar_matriz(f, c)
+
+                    R = p.suma_matrices(A, B)
+
+                    print("Resultado")
+                    p.mostrar_matriz(R)
+
+                case 2:
+                    f = int(input("Filas A: "))
+                    c = int(input("Columnas A / Filas B: "))
+                    cb = int(input("Columnas B: "))
+
+                    print("Matriz A")
+                    A = p.ingresar_matriz(f, c)
+
+                    print("Matriz B")
+                    B = p.ingresar_matriz(c, cb)
+
+                    R = p.multiplicar_matrices(A, B)
+
+                    print("Resultado")
+                    p.mostrar_matriz(R)
+
+                case 3:
+                    n = int(input("Tamaño de la matriz cuadrada: "))
+
+                    M = p.ingresar_matriz(n, n)
+
+                    inv = p.inversa_matriz(M)
+
+                    if inv:
+                        print("Matriz inversa")
+                        p.mostrar_matriz(inv)
+
+                case 4:
+                    f = int(input("Filas: "))
+                    c = int(input("Columnas: "))
+
+                    A = p.ingresar_matriz(f, c)
+
+                    vector = []
+
+                    for i in range(c):
+                        valor = float(input(f"Vector[{i}]: "))
+                        vector.append(valor)
+
+                    resultado = p.matriz_vector(A, vector)
+
+                    print("Resultado:", resultado)
+
+
+        # ORDENAMIENTOS
+        case 2:
+
+            n = int(input("Cantidad de números: "))
+
+            lista = [random.uniform(0,100) for _ in range(n)]
+
+            print("Lista original")
+            print(lista)
+
+            print("\nSUBMENU ORDENAMIENTO")
+            print("1. Burbuja")
+            print("2. Inserción")
+            print("3. Selección")
+            print("4. MergeSort")
+            print("5. sort() de Python")
+
+            sm = int(input("Seleccione: "))
+
+            match sm:
+
+                case 1:
+                    print("Ordenado:", p.burbuja(lista.copy()))
+
+                case 2:
+                    print("Ordenado:", p.insercion(lista.copy()))
+
+                case 3:
+                    print("Ordenado:", p.seleccion(lista.copy()))
+
+                case 4:
+                    print("Ordenado:", p.mergesort(lista.copy()))
+
+                case 5:
+                    lista.sort()
+                    print("Ordenado:", lista)
+
+
+        case 3:
+            print("Fin del programa")
+            break
