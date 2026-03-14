@@ -1,0 +1,192 @@
+import tkinter as tk
+from collections import deque
+
+# -----------------------------
+# Clase Documento
+# -----------------------------
+class Documento:
+
+    def __init__(self, nombre, paginas, tiempo):
+        self.nombre = nombre
+        self.paginas = paginas
+        self.tiempo = tiempo
+
+
+# -----------------------------
+# Clase Cola de Impresión
+# -----------------------------
+class ColaImpresion:
+
+    def __init__(self):
+        self.cola = deque()
+
+    def agregar(self, doc):
+        self.cola.append(doc)
+
+    def siguiente(self):
+        if self.cola:
+            return self.cola.popleft()
+        return None
+
+    def vacia(self):
+        return len(self.cola) == 0
+
+    def ver_cola(self):
+        return [doc.nombre for doc in self.cola]
+
+
+# -----------------------------
+# Aplicación principal
+# -----------------------------
+class App:
+
+    def __init__(self, root):
+
+        self.root = root
+        self.root.title("Simulador Cola de Impresión")
+
+        self.cola = ColaImpresion()
+
+        self.imprimiendo = False
+        self.doc_actual = None
+        self.pagina_actual = 0
+
+        # -----------------------------
+        # Entradas
+        # -----------------------------
+        tk.Label(root, text="Nombre del documento").pack()
+        self.nombre = tk.Entry(root)
+        self.nombre.pack()
+
+        tk.Label(root, text="Número de páginas").pack()
+        self.paginas = tk.Entry(root)
+        self.paginas.pack()
+
+        tk.Label(root, text="Tiempo por página (seg)").pack()
+        self.tiempo = tk.Entry(root)
+        self.tiempo.pack()
+
+        # -----------------------------
+        # Botones
+        # -----------------------------
+        tk.Button(root, text="Agregar documento",
+                  command=self.agregar_documento).pack()
+
+        tk.Button(root, text="Iniciar impresión",
+                  command=self.iniciar_impresion).pack()
+
+        # -----------------------------
+        # Estado
+        # -----------------------------
+        self.estado = tk.Label(root, text="Impresora lista")
+        self.estado.pack()
+
+        # -----------------------------
+        # Lista de cola
+        # -----------------------------
+        tk.Label(root, text="Documentos en cola").pack()
+
+        self.lista = tk.Listbox(root)
+        self.lista.pack()
+
+    # -----------------------------
+    # Agregar documento
+    # -----------------------------
+    def agregar_documento(self):
+
+        try:
+            nombre = self.nombre.get()
+            paginas = int(self.paginas.get())
+            tiempo = float(self.tiempo.get())
+
+            doc = Documento(nombre, paginas, tiempo)
+
+            if self.imprimiendo is False:
+                self.cola.agregar(doc)
+            else:
+                self.cola.agregar(doc)
+
+            self.actualizar_lista()
+
+            self.nombre.delete(0, tk.END)
+            self.paginas.delete(0, tk.END)
+            self.tiempo.delete(0, tk.END)
+
+        except:
+            self.estado.config(text="Datos inválidos")
+
+    # -----------------------------
+    # Actualizar lista
+    # -----------------------------
+    def actualizar_lista(self):
+
+        self.lista.delete(0, tk.END)
+
+        for doc in self.cola.ver_cola():
+            self.lista.insert(tk.END, doc)
+
+    # -----------------------------
+    # Iniciar impresión
+    # -----------------------------
+    def iniciar_impresion(self):
+
+        if self.imprimiendo:
+            return
+
+        if self.cola.vacia():
+            self.estado.config(text="No hay documentos en cola")
+            return
+
+        self.imprimiendo = True
+        self.doc_actual = self.cola.siguiente()
+        self.pagina_actual = 1
+
+        self.actualizar_lista()
+
+        self.imprimir_pagina()
+
+    # -----------------------------
+    # Simulación de impresión
+    # -----------------------------
+    def imprimir_pagina(self):
+
+        if self.doc_actual is None:
+            self.imprimiendo = False
+            self.estado.config(text="Impresora lista")
+            return
+
+        if self.pagina_actual <= self.doc_actual.paginas:
+
+            self.estado.config(
+                text=f"Imprimiendo {self.doc_actual.nombre} "
+                     f"Página {self.pagina_actual}/{self.doc_actual.paginas}"
+            )
+
+            self.pagina_actual += 1
+
+            self.root.after(
+                int(self.doc_actual.tiempo * 1000),
+                self.imprimir_pagina
+            )
+
+        else:
+
+            if self.cola.vacia():
+                self.doc_actual = None
+                self.imprimiendo = False
+                self.estado.config(text="No hay documentos en cola")
+            else:
+                self.doc_actual = self.cola.siguiente()
+                self.pagina_actual = 1
+                self.actualizar_lista()
+                self.imprimir_pagina()
+
+
+# -----------------------------
+# Programa principal
+# -----------------------------
+root = tk.Tk()
+
+app = App(root)
+
+root.mainloop()
