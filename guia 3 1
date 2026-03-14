@@ -1,0 +1,225 @@
+import time
+from collections import deque
+
+# -----------------------------
+# Clase Documento
+# -----------------------------
+class Documento:
+
+    def __init__(self, nombre, paginas, tiempo):
+        self.nombre = nombre
+        self.paginas = paginas
+        self.tiempo = tiempo
+
+
+# -----------------------------
+# Clase Cola de Impresión
+# -----------------------------
+class ColaImpresion:
+
+    def __init__(self):
+        self.cola = deque()
+
+    def agregar_documento(self, doc):
+        self.cola.append(doc)
+
+    def imprimir(self):
+
+        if len(self.cola) == 0:
+            print("\nNo hay documentos en cola\n")
+            return
+
+        doc = self.cola.popleft()
+
+        print(f"\nImprimiendo documento: {doc.nombre}")
+
+        for i in range(1, doc.paginas + 1):
+
+            print(f"Página {i} de {doc.paginas}")
+            time.sleep(doc.tiempo)
+
+        print("Documento terminado\n")
+
+    def mostrar_cola(self):
+
+        if len(self.cola) == 0:
+            print("La cola está vacía")
+        else:
+            print("\nDocumentos en cola:")
+            for d in self.cola:
+                print(d.nombre)
+
+
+# -----------------------------
+# Clase Tarea Robot
+# -----------------------------
+class Tarea:
+
+    def __init__(self, tipo, tiempo):
+        self.tipo = tipo
+        self.tiempo = tiempo
+
+
+# -----------------------------
+# Clase Pila Robot
+# -----------------------------
+class PilaRobot:
+
+    def __init__(self):
+        self.pila = []
+
+    def agregar_tarea(self, tarea):
+
+        self.pila.append(tarea)
+
+        print("Tarea agregada a la pila")
+
+    def ejecutar_tarea(self):
+
+        if len(self.pila) == 0:
+            print("No hay tareas en la pila")
+            return
+
+        tarea = self.pila.pop()
+
+        print(f"\nEjecutando tarea: {tarea.tipo}")
+        time.sleep(tarea.tiempo)
+        print("Tarea finalizada\n")
+
+    def mostrar_pila(self):
+
+        if len(self.pila) == 0:
+            print("La pila está vacía")
+        else:
+            print("\nTareas en pila:")
+            for t in reversed(self.pila):
+                print(t.tipo)
+
+
+# -----------------------------
+# Programa principal
+# -----------------------------
+class Programa:
+
+    def __init__(self):
+
+        self.cola = ColaImpresion()
+        self.robot = PilaRobot()
+
+    def menu(self):
+
+        while True:
+
+            print("\n====== MENU PRINCIPAL ======")
+            print("1. Cola de impresión")
+            print("2. Pila de tareas del robot")
+            print("3. Salir")
+
+            opcion = input("Seleccione una opción: ")
+
+            if opcion == "1":
+                self.menu_impresora()
+
+            elif opcion == "2":
+                self.menu_robot()
+
+            elif opcion == "3":
+                print("Programa finalizado")
+                break
+
+            else:
+                print("Opción inválida")
+
+    # -----------------------------
+    # Menú impresora
+    # -----------------------------
+    def menu_impresora(self):
+
+        while True:
+
+            print("\n--- COLA DE IMPRESIÓN ---")
+            print("1. Agregar documento")
+            print("2. Imprimir documento")
+            print("3. Mostrar cola")
+            print("4. Volver")
+
+            opcion = input("Seleccione: ")
+
+            if opcion == "1":
+
+                nombre = input("Nombre documento: ")
+                paginas = int(input("Número de páginas: "))
+                tiempo = float(input("Tiempo por página: "))
+
+                doc = Documento(nombre, paginas, tiempo)
+
+                self.cola.agregar_documento(doc)
+
+            elif opcion == "2":
+
+                self.cola.imprimir()
+
+            elif opcion == "3":
+
+                self.cola.mostrar_cola()
+
+            elif opcion == "4":
+
+                break
+
+            else:
+                print("Opción inválida")
+
+    # -----------------------------
+    # Menú robot
+    # -----------------------------
+    def menu_robot(self):
+
+        while True:
+
+            print("\n--- PILA ROBOT ---")
+            print("1. Agregar tarea sensores")
+            print("2. Agregar tarea movimiento")
+            print("3. Ejecutar tarea")
+            print("4. Mostrar pila")
+            print("5. Volver")
+
+            opcion = input("Seleccione: ")
+
+            if opcion == "1":
+
+                tiempo = float(input("Tiempo de ejecución sensores: "))
+                tarea = Tarea("Sensores", tiempo)
+
+                self.robot.agregar_tarea(tarea)
+
+            elif opcion == "2":
+
+                tiempo = float(input("Tiempo de ejecución movimiento: "))
+                tarea = Tarea("Movimiento", tiempo)
+
+                self.robot.agregar_tarea(tarea)
+
+            elif opcion == "3":
+
+                self.robot.ejecutar_tarea()
+
+            elif opcion == "4":
+
+                self.robot.mostrar_pila()
+
+            elif opcion == "5":
+
+                break
+
+            else:
+                print("Opción inválida")
+
+
+# -----------------------------
+# Ejecutar programa
+# -----------------------------
+if __name__ == "__main__":
+
+    programa = Programa()
+    programa.menu()
