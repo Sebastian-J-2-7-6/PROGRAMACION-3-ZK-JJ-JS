@@ -26,7 +26,7 @@ class Car:
             START_X, self.y_pos(), anchor="nw", image=self.image
         )
 
-        # 🔥 NOMBRE DEL AUTO
+        # NOMBRE DEL AUTO
         self.label = canvas.create_text(
             START_X + 10,
             self.y_pos() + CAR_HEIGHT + 5,
